@@ -1,9 +1,9 @@
-﻿// Created by Microsoft (R) C/C++ Compiler Version 14.28.29336.0 (96fd9133).
+﻿// Created by Microsoft (R) C/C++ Compiler Version 14.28.29915.0 (c1aa7478).
 //
-// D:\用户\xxq文档\c++课设\program\销售公司员工管理\Debug\msado15.tli
+// D:\用户\xxq文档\c++课设\repositories\C-CurriculumDesign\Debug\msado15.tli
 //
 // Wrapper implementations for type library C:/Program Files/Common Files/System/ado/msado15.dll
-// compiler-generated file created 05/04/21 at 09:59:30 - DO NOT EDIT!
+// compiler-generated file created 05/15/21 at 16:42:48 - DO NOT EDIT!
 
 #pragma once
 

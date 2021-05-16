@@ -65,7 +65,7 @@ bool Connect::showing() {
 		/*存储表的所有列名，显示表的列名*/
 		for (int i = 0; i < pRst->Fields->GetCount(); i++)
 		{
-			cout << pRst->Fields->GetItem(_variant_t((long)i))->Name << " ";
+			cout << pRst->Fields->GetItem(_variant_t((long)i))->Name << "  ";
 			column_name.push_back(pRst->Fields->GetItem(_variant_t((long)i))->Name);
 		}
 		cout << endl;
@@ -193,7 +193,6 @@ bool Connect::inserting(CString sql,CString num) {
 		return false;
 	}
 }
-
 
 
 
@@ -383,14 +382,26 @@ bool Operate::log_in() {
 
 void Operate::query_employees() {
 	cout << endl;
-	cout << "输入想要查询的人的员工编号：" << endl;
-	cin >> num;
-	cout << endl;
-	cout << "查询中......" << endl;
+	cout << "输入查询方式编号：  1.通过编号查找       2.通过姓名或姓名关键字查找 " << endl;
+	cin >> status;
 	Connect con;
 	CString sql;
-	CString aim(num.c_str());
-	sql.Format(_T("SELECT * FROM Employees WHERE 编号=%s"), aim);
+	if (status == 1) {
+		cout << "输入想要查询的人的员工编号(6位数)：" << endl;
+		cin >> num;
+		cout << endl;
+		CString aim(num.c_str());
+		sql.Format(_T("EXECUTE check_by_ID '%s'"), aim);
+		cout << "查询中......" << endl;
+	}
+	else {
+		cout << "输入姓名或姓名中含有的个别字：" << endl;
+		cin >> name;
+		cout<< endl;
+		CString aim(name.c_str());
+		sql.Format(_T("EXECUTE check_by_name '%s'"), aim);
+		cout << "查询中......" << endl;
+	}
 	if (con.check(sql)) {
 		cout << "查询成功！" << endl;
 		cout << endl;
@@ -399,7 +410,6 @@ void Operate::query_employees() {
 	else {
 		cout << "查询失败！" << endl;
 	}
-	
 }
 
 void Operate::delete_employees() {
@@ -417,12 +427,13 @@ void Operate::delete_employees() {
 			con.showing();
 			cout << endl;
 			cout << "确认删除该员工？" << endl;
-			cout << "输入 0(确认) 或者 1(取消):";
+			cout << "输入 0(确认) 或者 1(取消):"<<endl;
 			cin >> confirm;
 		} while (confirm != 0 && confirm != 1);
 
 		if (confirm == 0) {
 			cout << "确认删除，正在删除中..." << endl;
+			cout << endl;
 			con.deleting(CS_num);
 		}
 		else {
@@ -493,6 +504,5 @@ void Operate::update_() {
 
 int main() {
 	Operate run;
-	// testing!
 	return 0;
 }

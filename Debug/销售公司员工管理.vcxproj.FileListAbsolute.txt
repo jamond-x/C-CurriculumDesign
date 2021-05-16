@@ -1,2 +1,3 @@
 D:\用户\xxq文档\c++课设\program\销售公司员工管理\Debug\销售公司员工管理.exe
 D:\用户\xxq文档\c++课设\program\销售公司员工管理\Debug\销售公司员工管理.pdb
+D:\用户\xxq文档\c++课设\repositories\C-CurriculumDesign\Debug\销售公司员工管理.exe
