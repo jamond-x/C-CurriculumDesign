@@ -28,7 +28,6 @@ public:
 	bool log_in(string user,string password);
 	bool inserting(CString sql, CString num);
 
-
 };
 
 class Staff {
@@ -74,7 +73,9 @@ protected:
 	string admin_user = "";
 	string admin_password = "";
 	string num = "";
+	int num_int;
 	string name = "";
+	string value;
 public:
 	Operate();
 	bool log_in();

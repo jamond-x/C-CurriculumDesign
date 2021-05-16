@@ -1,6 +1,5 @@
 #include "mainHead.h"
 
-
 Connect::Connect() {
 	CoInitialize(NULL);
 	/*_ConnectionPtr pMyConnect(__uuidof(Connection));
@@ -51,6 +50,7 @@ bool Connect::check(CString sqlstr) {
 	}
 	catch (_com_error& e)
 	{
+		cout << "来自ckeck的提示信息" << endl;
 		cout << e.Description() << endl;
 		cout << e.HelpFile() << endl;
 		return false;
@@ -195,18 +195,19 @@ bool Connect::inserting(CString sql,CString num) {
 }
 
 
-
 Staff::Staff() {}
-
 
 
 Salesman::Salesman() {}
 
 void Salesman::Input() {
 	Connect con;
+	cout << endl;
 	cout << "输入下列信息" << endl;
+	cout << endl;
 	cout << "编号：" << endl;
 	cin >> num;
+	cout << endl;
 	CString num_CS(num.c_str());
 	CString sql;
 	sql.Format(_T("EXECUTE check_by_ID '%s'"), num_CS);
@@ -221,12 +222,16 @@ void Salesman::Input() {
 	}
 	cout << "姓名：" << endl;
 	cin >> name;
+	cout << endl;
 	cout << "年龄：" << endl;
 	cin >> age;
+	cout << endl;
 	cout << "性别：" << endl;
 	cin >> sex;
+	cout << endl;
 	cout << "当前销售额：" << endl;
 	cin >> salesValue;
+	cout << endl;
 	CString num_CString(num.c_str());
 	CString name_CS(name.c_str());
 	CString sqlstr;
@@ -240,12 +245,13 @@ void Salesman::Input() {
 }
 
 
-
 Manager::Manager() {}
 
 void Manager::Input() {
 	Connect con;
+	cout << endl;
 	cout << "输入下列信息" << endl;
+	cout << endl;
 	cout << "编号：" << endl;
 	cin >> num;
 	CString num_CS(num.c_str());
@@ -260,12 +266,16 @@ void Manager::Input() {
 		sql.Format(_T("EXECUTE check_by_ID '%s'"), num_CS);
 		res = con.check(sql);
 	}
+	cout << endl;
 	cout << "姓名：" << endl;
 	cin >> name;
+	cout << endl;
 	cout << "年龄：" << endl;
 	cin >> age;
+	cout << endl;
 	cout << "性别：" << endl;
 	cin >> sex;
+	cout << endl;
 	CString num_CString(num.c_str());
 	CString name_CS(name.c_str());
 	CString sqlstr;
@@ -280,13 +290,13 @@ void Manager::Input() {
 }
 
 
-
-
 SalesManager::SalesManager() {}
 
 void SalesManager::Input() {
 	Connect con;
+	cout << endl;
 	cout << "输入下列信息" << endl;
+	cout << endl;
 	cout << "编号：" << endl;
 	cin >> num;
 	CString num_CS(num.c_str());
@@ -303,10 +313,13 @@ void SalesManager::Input() {
 	}
 	cout << "姓名：" << endl;
 	cin >> name;
+	cout << endl;
 	cout << "年龄：" << endl;
 	cin >> age;
+	cout << endl;
 	cout << "性别：" << endl;
 	cin >> sex;
+	cout << endl;
 	CString num_CString(num.c_str());
 	CString name_CS(name.c_str());
 	CString sqlstr;
@@ -318,8 +331,6 @@ void SalesManager::Input() {
 		cout << "添加失败！" << endl;
 	}
 }
-
-
 
 
 
@@ -362,6 +373,7 @@ Operate::Operate() {
 bool Operate::log_in() {
 	//cout << endl;
 	cout << "输入账号密码登录管理系统:" << endl;
+	cout << endl;
 	cout << "管理员账号：" << endl;
 	cin >> admin_user;
 	cout << "密码：" << endl;
@@ -375,7 +387,7 @@ bool Operate::log_in() {
 		cout << "账号密码错误，请重新输入！" << endl;
 		return false;
 	}
-	
+	con.~Connect();
 }
 
 void Operate::query_employees() {
@@ -479,9 +491,19 @@ void Operate::insert_() {
 
 void Operate::update_() {
 	do {
-		cout << "更新员工的类型为 1(Manager) 2(SalesManager) 3(Salesman)" << endl;
-		cin >> status;
-	} while (status != 1 && status != 2 && status != 3);
+		cout << endl;
+		cout << "请输入相应编号：" << endl;
+		cout << "1.仅更新员工销售额   2.更新员工基本信息" << endl;
+		cin >> confirm;
+		if (confirm == 1) {
+			status = 4;
+		}
+		else {
+			cout << endl;
+			cout << "更新员工的类型为 1(Manager) 2(SalesManager) 3(Salesman)" << endl;
+			cin >> status;
+		}
+	} while (status != 1 && status != 2 && status != 3 && status != 4);
 	
 	Staff* ptr;
 	if (status == 1) {
@@ -496,8 +518,27 @@ void Operate::update_() {
 		ptr = new Salesman;
 		ptr->Input();
 	}
+	else if (status == 4) {
+		cout << endl;
+		cout << "需要更新的员工的编号为：" << endl;
+		cin >> num_int;
+		cout << endl;
+		cout << "输入新的销售额：" << endl;
+		cin >> value;
+		/*CString num_cs;
+		num_cs.Format(_T("%f"), num_f);*/
+		CString value_cs(value.c_str());
+		CString sql;
+		sql.Format(_T("EXECUTE update_saleValue %d,'%s'"), num_int, value_cs);   //  TODO: 这里有问题
+		Connect obj;
+		if (obj.check(sql)) {
+			cout << "更新成功!" << endl;
+		}
+		else {
+			cout << "更新失败！" << endl;
+		}
+	}
 }
-
 
 
 
