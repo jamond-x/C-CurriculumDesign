@@ -209,14 +209,14 @@ void Salesman::Input() {
 	cin >> num;
 	CString num_CS(num.c_str());
 	CString sql;
-	sql.Format(_T("SELECT * FROM Employees WHERE ±àºÅ=%s"), num_CS);
+	sql.Format(_T("EXECUTE check_by_ID '%s'"), num_CS);
 	bool res = con.check(sql);
 	while (res) {
 		cout << "±àºÅÖØ¸´£¬ÖØÐÂÊäÈë£¡" << endl;
 		cin >> num;
 		CString num_CS(num.c_str());
 		CString sql;
-		sql.Format(_T("SELECT * FROM Employees WHERE ±àºÅ=%s"), num_CS);
+		sql.Format(_T("EXECUTE check_by_ID '%s'"), num_CS);
 		res = con.check(sql);
 	}
 	cout << "ÐÕÃû£º" << endl;
@@ -250,14 +250,14 @@ void Manager::Input() {
 	cin >> num;
 	CString num_CS(num.c_str());
 	CString sql;
-	sql.Format(_T("SELECT * FROM Employees WHERE ±àºÅ=%s"), num_CS);
+	sql.Format(_T("EXECUTE check_by_ID '%s'"), num_CS);
 	bool res = con.check(sql);
 	while (res) {
 		cout << "±àºÅÖØ¸´£¬ÖØÐÂÊäÈë£¡" << endl;
 		cin >> num;
 		CString num_CS(num.c_str());
 		CString sql;
-		sql.Format(_T("SELECT * FROM Employees WHERE ±àºÅ=%s"), num_CS);
+		sql.Format(_T("EXECUTE check_by_ID '%s'"), num_CS);
 		res = con.check(sql);
 	}
 	cout << "ÐÕÃû£º" << endl;
@@ -298,7 +298,7 @@ void SalesManager::Input() {
 		cin >> num;
 		CString num_CS(num.c_str());
 		CString sql;
-		sql.Format(_T("SELECT * FROM Employees WHERE ±àºÅ=%s"), num_CS);
+		sql.Format(_T("EXECUTE check_by_ID '%s'"), num_CS);
 		res = con.check(sql);
 	}
 	cout << "ÐÕÃû£º" << endl;
@@ -360,7 +360,7 @@ Operate::Operate() {
 }
 
 bool Operate::log_in() {
-	cout << endl;
+	//cout << endl;
 	cout << "ÊäÈëÕËºÅÃÜÂëµÇÂ¼¹ÜÀíÏµÍ³:" << endl;
 	cout << "¹ÜÀíÔ±ÕËºÅ£º" << endl;
 	cin >> admin_user;
@@ -368,12 +368,10 @@ bool Operate::log_in() {
 	cin >> admin_password;
 	Connect con;
 	if (con.log_in(admin_user, admin_password)) {
-		cout << endl;
 		cout << "ÕËºÅÃÜÂëÕýÈ·£¬µÇÂ¼³É¹¦£¡" << endl;
 		return true;
 	}
 	else {
-		cout << endl;
 		cout << "ÕËºÅÃÜÂë´íÎó£¬ÇëÖØÐÂÊäÈë£¡" << endl;
 		return false;
 	}
@@ -419,7 +417,7 @@ void Operate::delete_employees() {
 	CString CS_num(num.c_str());
 	CString sql;
 	confirm = 1000;
-	sql.Format(_T("SELECT * FROM Employees WHERE ±àºÅ=%s"), CS_num);
+	sql.Format(_T("EXECUTE check_by_ID '%s'"), CS_num);
 	if (con.check(sql)) {
 		do {
 			cout << endl;
@@ -499,6 +497,7 @@ void Operate::update_() {
 		ptr->Input();
 	}
 }
+
 
 
 

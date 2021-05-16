@@ -13,6 +13,9 @@ private:
 	_ConnectionPtr pMyConnect;
 	_RecordsetPtr pRst;
 	int data = 666;
+
+	string str;
+
 public:
 	Connect();
 	~Connect();
@@ -24,6 +27,8 @@ public:
 	bool test_showing();
 	bool log_in(string user,string password);
 	bool inserting(CString sql, CString num);
+
+
 };
 
 class Staff {
