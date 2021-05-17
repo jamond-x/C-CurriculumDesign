@@ -8,28 +8,6 @@
 #include <vector>
 using namespace std;
 
-class Connect {
-private:
-	_ConnectionPtr pMyConnect;
-	_RecordsetPtr pRst;
-	int data = 666;
-
-	string str;
-
-public:
-	Connect();
-	~Connect();
-	bool check(CString sqlstr);
-	bool showing();
-	/*bool updata();
-	bool add();*/
-	bool deleting(CString sqlstr);
-	bool test_showing();
-	bool log_in(string user,string password);
-	bool inserting(CString sql, CString num);
-
-};
-
 class Staff {
 protected:
 	string num;
@@ -58,7 +36,7 @@ public:
 
 class SalesManager :public Salesman, public Manager {
 protected:
-	int department;
+	int department;// É¾³ý£¡
 public:
 	SalesManager();
 	void Input();

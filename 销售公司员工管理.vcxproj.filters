@@ -18,9 +18,24 @@
     <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="main_.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Connect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Operate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainHead.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Connect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Operate.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

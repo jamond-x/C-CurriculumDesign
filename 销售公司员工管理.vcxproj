@@ -139,9 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Connect.h" />
     <ClInclude Include="mainHead.h" />
+    <ClInclude Include="Operate.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Connect.cpp" />
+    <ClCompile Include="main_.cpp" />
+    <ClCompile Include="Operate.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
