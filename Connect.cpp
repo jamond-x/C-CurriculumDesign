@@ -36,6 +36,8 @@ Connect::~Connect() {
 	CoUninitialize(); //释放COM环境
 }
 
+bool Connect::superadmin = false;
+
 bool Connect::check(CString sqlstr) {
 	//CString sql(sqlstr.c_str());
 	try {
@@ -113,6 +115,43 @@ bool Connect::test_showing() {
 	return 0;
 }
 
+//bool Connect::log_in(string user, string password) {
+//
+//	CString theuser(user.c_str());
+//	CString sqlstr;
+//	sqlstr.Format(_T("SELECT * FROM admin WHERE 账号='%s'"), theuser);
+//
+//	try {
+//		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);
+//		if (pRst->BOF || pRst->adoEOF) {
+//			cout << endl;
+//			cout << "数据库没有对应数据！查询失败！" << endl;
+//			return false;
+//		}
+//		while (!pRst->adoEOF) {
+//			_variant_t save = pRst->GetCollect("密码");
+//			string password_DB = (char*)(_bstr_t)save;
+//			if (password_DB == password) {
+//				cout << endl;
+//				return true;
+//			}
+//			else {
+//				cout << endl;
+//				cout << "密码错误！" << endl;
+//				return false;
+//			}
+//			pRst->MoveNext();
+//		}
+//	}
+//	catch (string e) {
+//		cout << endl;
+//		cout << "失败!!!" << e << endl;
+//		return false;
+//	}
+//	return false;   //  可能需要改变！
+//}
+
+
 bool Connect::log_in(string user, string password) {
 
 	CString theuser(user.c_str());
@@ -128,9 +167,17 @@ bool Connect::log_in(string user, string password) {
 		}
 		while (!pRst->adoEOF) {
 			_variant_t save = pRst->GetCollect("密码");
+			_variant_t admin = pRst->GetCollect("superadmin");
 			string password_DB = (char*)(_bstr_t)save;
+			string admin_DB = (char*)(_bstr_t)admin;
 			if (password_DB == password) {
 				cout << endl;
+				if (admin_DB == "-1") {
+					superadmin = true;
+				}
+				else {
+					superadmin = false;
+				}
 				return true;
 			}
 			else {
@@ -192,4 +239,16 @@ bool Connect::inserting(CString sql, CString num) {
 		cout << "插入失败！" << endl;
 		return false;
 	}
+}
+
+void Connect::super_to_true() {
+	superadmin = true;
+}
+
+void Connect::super_to_false() {
+	superadmin = false;
+}
+
+bool Connect::is_super() {
+	return superadmin;
 }

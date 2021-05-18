@@ -5,12 +5,17 @@
 #include<atlstr.h>
 #include <vector>
 #include"mainHead.h"
+#include"SalesManager.h"
+//#include"Manager.h"
+//#include"Salesman.h"
 using namespace std;
+
 class Connect {
 private:
 	_ConnectionPtr pMyConnect;
 	_RecordsetPtr pRst;
 	int data = 666;
+	static bool superadmin;
 public:
 	Connect();
 	~Connect();
@@ -22,4 +27,7 @@ public:
 	bool test_showing();
 	bool log_in(string user, string password);
 	bool inserting(CString sql, CString num);
+	void super_to_true();
+	void super_to_false();
+	bool is_super();
 };

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="源.cpp">
+    <ClCompile Include="Staff.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main_.cpp">
@@ -27,6 +27,15 @@
     <ClCompile Include="Operate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SalesManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Salesman.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainHead.h">
@@ -36,6 +45,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Operate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SalesManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

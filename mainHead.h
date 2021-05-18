@@ -34,32 +34,4 @@ public:
 	void Input();
 };
 
-class SalesManager :public Salesman, public Manager {
-protected:
-	int department;// É¾³ý£¡
-public:
-	SalesManager();
-	void Input();
-};
-
-class Operate {
-protected:
-	int status = 0;
-	int confirm;
-	int employees_calss = 100;
-	bool login_status = false;
-	string admin_user = "";
-	string admin_password = "";
-	string num = "";
-	int num_int;
-	string name = "";
-	string value;
-public:
-	Operate();
-	bool log_in();
-	void query_employees();
-	void delete_employees();
-	void insert_();
-	void update_();
-};
 
