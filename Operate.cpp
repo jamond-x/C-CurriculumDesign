@@ -17,7 +17,32 @@ Operate::Operate() {
 		cout << "输入操作代码： 1: 更改管理员账号信息  2：更改员工信息" << endl;
 		cin >> confirm;
 		if (confirm == 1) {
-			super_opr();
+			while (!super_opr()) {   //  完成对应操作后才退出
+
+			}
+			cout << "完成 更改管理员账号信息 操作！" << endl;
+			/*while (confirm != 1 && confirm != 2) {
+				if (confirm == 1) {
+					while (!super_opr()) {}
+				}
+				else  if (confirm == 2) {
+					basic_cycle();
+				}
+			}*/
+			do {
+				cout << "输入操作代码： 1: 更改管理员账号信息  2：更改员工信息  3:退出" << endl;
+				cin >> confirm;
+				if (confirm == 1) {
+					while (!super_opr()) {}
+				}
+				else  if (confirm == 2) {
+					basic_cycle();
+					status = 100;
+				}
+				else if (confirm == 3) {
+					break;
+				}
+			} while (1);
 		}
 		else {
 			basic_cycle();
@@ -184,17 +209,17 @@ void Operate::update_() {
 	else if (status == 4) {
 		cout << endl;
 		cout << "需要更新的员工的编号为：" << endl;
-		cin >> num_int;
+		cin >> name;
 		cout << endl;
 		cout << "输入新的销售额：" << endl;
-		cin >> value;
+		cin >> num_int;
 		/*CString num_cs;
 		num_cs.Format(_T("%f"), num_f);*/
-		CString value_cs(value.c_str());
+		CString name_cs(name.c_str());
 		CString sql;
-		sql.Format(_T("EXECUTE update_saleValue %d,'%s'"), num_int, value_cs);   //  TODO: 这里有问题
+		sql.Format(_T("EXECUTE update_saleValue %d,'%s'"), num_int, name_cs);   //  TODO: 这里有问题
 		Connect obj;
-		if (obj.check(sql)) {
+		if (obj.update(sql)) {
 			cout << "更新成功!" << endl;
 		}
 		else {
@@ -231,6 +256,80 @@ void Operate::basic_cycle() {
 	}
 }
 
-void Operate::super_opr() {
-	cout << "正在操作管理员账号！" << endl;
+bool Operate::super_opr() {
+	cout<< endl;
+	cout << "输入操作代码：  1：增加普通管理员账号  2：删除普通管理员账号 3：修改密码（普通管理员账号）" << endl;
+	cin >> confirm;
+	if (confirm == 1) {
+		cout << "输入账号（纯字母）：" << endl;
+		cin >> admin_user;
+		cout << endl;
+		cout << "输入密码：" << endl;
+		cin >> admin_password;
+		cout << endl;
+		add_admin(admin_user, admin_password);
+		cout << endl;
+		return true;
+	}
+	else if (confirm == 2) {
+		cout << "输入需要删除的账号：" << endl;
+		cin >> admin_user;
+		Connect con;
+		CString ID_cs(admin_user.c_str());
+		CString sql;
+		sql.Format(_T("EXECUTE check_by_ID %s"), ID_cs);
+		con.check(sql);
+		if (con.is_res_empty()) {
+			cout << "数据库存在该账号，确认删除？" << endl;
+			cout << "1：确定   2：取消" << endl;
+			cin >> temp;
+		}
+		else {
+			cout << "数据库中没有该账号，请重新核对后再进行操作" << endl;
+			temp = 2;
+		}
+		if (temp == 1) {
+			delete_admin(admin_user);
+		}
+		return true;
+	}
+	else if (confirm == 3) {
+		cout << "修改密码（普通管理员账号）" << endl;
+		return true;
+	}
+	return false;
+}
+
+bool Operate::add_admin(string name, string pw) {
+	CString sql;
+	CString name_cs(name.c_str());
+	CString pw_cs(pw.c_str());
+	sql.Format(_T("EXECUTE add_admin '%s','%s'"), name_cs, pw_cs);
+	Connect con;
+	if (con.update(sql)) {
+		cout << "添加账号成功！" << endl;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Operate::delete_admin(string name) {
+	CString sql;
+	CString name_cs(name.c_str());
+	sql.Format(_T("EXECUTE delete_admin '%s'"), name_cs);
+	Connect con;
+	if (con.update(sql)) {
+		cout << "删除账号成功！" << endl;
+		return true;
+	}
+	else {
+		cout << "删除失败！" << endl;
+		return false;
+	}
+}
+
+bool Operate::modify_admin(string name, string pw) {
+	return true;
 }

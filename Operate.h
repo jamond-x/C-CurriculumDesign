@@ -6,6 +6,7 @@ class Operate {
 protected:
 	int status = 0;
 	int confirm;
+	int temp;
 	int employees_calss = 100;
 	bool login_status = false;
 	string admin_user = "";
@@ -16,11 +17,15 @@ protected:
 	string value;
 public:
 	Operate();
+	~Operate() {};
 	void basic_cycle();
-	void super_opr();
+	bool super_opr();
 	bool log_in();
 	void query_employees();
 	void delete_employees();
 	void insert_();
 	void update_();
+	bool add_admin(string name,string pw);
+	bool delete_admin(string name);
+	bool modify_admin(string name, string pw);
 };
