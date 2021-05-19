@@ -24,10 +24,11 @@ public:
 	/*bool updata();
 	bool add();*/
 	bool deleting(CString sqlstr);
-	bool test_showing();
+	bool update(CString sqlstr);
 	bool log_in(string user, string password);
 	bool inserting(CString sql, CString num);
 	void super_to_true();
 	void super_to_false();
 	bool is_super();
+	bool is_res_empty();
 };

@@ -42,7 +42,7 @@ bool Connect::check(CString sqlstr) {
 	//CString sql(sqlstr.c_str());
 	try {
 		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);
-		if (pRst->BOF || pRst->adoEOF) {
+		if (pRst->BOF || pRst->adoEOF) {    // UPDATE  不允许操作 ！！！
 			return false;
 		}
 		else {
@@ -99,20 +99,19 @@ bool Connect::showing() {
 	}
 }
 
-bool Connect::test_showing() {
-	int a = 0;
-	string temp = "";
-	while (!pRst->adoEOF) {
-		_variant_t save = pRst->GetCollect("Name");
-		cout << ++a << endl;
-
-		temp = (char*)(_bstr_t)save;   //  将 _variant_t 转换为 string  !
-
-		cout << temp << endl;
-
-		pRst->MoveNext();
+bool Connect::update(CString sqlstr) {
+	try {
+		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);
+		cout << endl;
+		return true;
 	}
-	return 0;
+	catch (_com_error& e)
+	{
+		cout << "来自update的提示信息" << endl;
+		cout << e.Description() << endl;
+		cout << e.HelpFile() << endl;
+		return false;
+	}
 }
 
 //bool Connect::log_in(string user, string password) {
@@ -251,4 +250,13 @@ void Connect::super_to_false() {
 
 bool Connect::is_super() {
 	return superadmin;
+}
+
+bool Connect::is_res_empty() {
+	if (!pRst->BOF && !pRst->adoEOF) {
+		return false;  // 结果集不为空     ?????   这里不对！！！
+	}
+	else {
+		return true;  // 结果集为空！
+	}
 }
