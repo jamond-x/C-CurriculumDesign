@@ -21,14 +21,6 @@ Operate::Operate() {
 
 			}
 			cout << "完成 更改管理员账号信息 操作！" << endl;
-			/*while (confirm != 1 && confirm != 2) {
-				if (confirm == 1) {
-					while (!super_opr()) {}
-				}
-				else  if (confirm == 2) {
-					basic_cycle();
-				}
-			}*/
 			do {
 				cout << "输入操作代码： 1: 更改管理员账号信息  2：更改员工信息  3:退出" << endl;
 				cin >> confirm;
@@ -294,8 +286,20 @@ bool Operate::super_opr() {
 		return true;
 	}
 	else if (confirm == 3) {
-		cout << "修改密码（普通管理员账号）" << endl;
-		return true;
+		Connect con;
+		cout << "输入被修改的账号：" << endl;
+		cin >> admin_user;
+		cout << "输入新密码:" << endl;
+		cin >> admin_password;
+		if (modify_admin(admin_user, admin_password)) {
+			cout << "修改成功" << endl;
+			return true;
+		}
+		else {
+			cout << "修改失败！" << endl;
+			return false;
+		}
+		
 	}
 	return false;
 }
@@ -331,5 +335,15 @@ bool Operate::delete_admin(string name) {
 }
 
 bool Operate::modify_admin(string name, string pw) {
-	return true;
+	Connect con;
+	CString name_cs(name.c_str());
+	CString pw_cs(pw.c_str());
+	CString sql;
+	sql.Format(_T("EXECUTE modify_admin '%s','%s'"), name_cs, pw_cs);
+	if (con.update(sql)) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
