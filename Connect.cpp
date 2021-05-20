@@ -114,42 +114,6 @@ bool Connect::update(CString sqlstr) {
 	}
 }
 
-//bool Connect::log_in(string user, string password) {
-//
-//	CString theuser(user.c_str());
-//	CString sqlstr;
-//	sqlstr.Format(_T("SELECT * FROM admin WHERE 账号='%s'"), theuser);
-//
-//	try {
-//		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);
-//		if (pRst->BOF || pRst->adoEOF) {
-//			cout << endl;
-//			cout << "数据库没有对应数据！查询失败！" << endl;
-//			return false;
-//		}
-//		while (!pRst->adoEOF) {
-//			_variant_t save = pRst->GetCollect("密码");
-//			string password_DB = (char*)(_bstr_t)save;
-//			if (password_DB == password) {
-//				cout << endl;
-//				return true;
-//			}
-//			else {
-//				cout << endl;
-//				cout << "密码错误！" << endl;
-//				return false;
-//			}
-//			pRst->MoveNext();
-//		}
-//	}
-//	catch (string e) {
-//		cout << endl;
-//		cout << "失败!!!" << e << endl;
-//		return false;
-//	}
-//	return false;   //  可能需要改变！
-//}
-
 
 bool Connect::log_in(string user, string password) {
 
