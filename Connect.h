@@ -31,4 +31,5 @@ public:
 	void super_to_false();
 	bool is_super();
 	bool is_res_empty();
+
 };
