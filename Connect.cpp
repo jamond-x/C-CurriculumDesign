@@ -224,3 +224,4 @@ bool Connect::is_res_empty() {
 		return true;  // 结果集为空！
 	}
 }
+
