@@ -5,7 +5,7 @@
 * 操作数据库
 * QT界面（开发中）
 
-### 思路导图
+### 功能导图
 
 ![](https://github.com/jamond-x/C-CurriculumDesign/blob/main/static/img/%E6%80%9D%E8%B7%AF.png)
 
