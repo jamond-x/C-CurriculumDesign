@@ -9,5 +9,5 @@
 
 ### 功能导图
 
-![](https://github.com/jamond-x/C-CurriculumDesign/blob/main/static/img/%E7%A8%8B%E5%BA%8F%E6%80%BB%E6%80%9D%E8%B7%AF.png)
+![](https://github.com/jamond-x/C-CurriculumDesign/blob/main/static/img/%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B.png)
 
