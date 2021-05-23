@@ -1,11 +1,11 @@
 #include"Connect.h"
 
 Connect::Connect() {
-	CoInitialize(NULL);
+	CoInitialize(NULL);   //  初始化COM环境 
 	/*_ConnectionPtr pMyConnect(__uuidof(Connection));
 	_RecordsetPtr pRst(__uuidof(Recordset));*/
-	pMyConnect.CreateInstance(__uuidof(Connection));
-	pRst.CreateInstance(__uuidof(Recordset));
+	pMyConnect.CreateInstance(__uuidof(Connection));  //  创建实例
+	pRst.CreateInstance(__uuidof(Recordset));   //  创建实例
 	try
 	{
 		//步骤2：创建数据源连接
@@ -39,10 +39,9 @@ Connect::~Connect() {
 bool Connect::superadmin = false;
 
 bool Connect::check(CString sqlstr) {
-	//CString sql(sqlstr.c_str());
 	try {
-		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);
-		if (pRst->BOF || pRst->adoEOF) {    // UPDATE  不允许操作 ！！！
+		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);   // 执行传入的SQL语句，并将返回结果集给到pRst指针
+		if (pRst->BOF || pRst->adoEOF) {    // 判断返回集是否为空    BOF表示 Before The File    adoEOF 表示 End Of File
 			return false;
 		}
 		else {
@@ -101,7 +100,7 @@ bool Connect::showing() {
 
 bool Connect::update(CString sqlstr) {
 	try {
-		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);
+		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);   // 执行查询
 		cout << endl;
 		return true;
 	}
@@ -117,25 +116,25 @@ bool Connect::update(CString sqlstr) {
 
 bool Connect::log_in(string user, string password) {
 
-	CString theuser(user.c_str());
+	CString theuser(user.c_str());   // 将string 转换为 CString 类型
 	CString sqlstr;
-	sqlstr.Format(_T("SELECT * FROM admin WHERE 账号='%s'"), theuser);
+	sqlstr.Format(_T("SELECT * FROM admin WHERE 账号='%s'"), theuser);   // sql字符中加入目标字符串值
 
 	try {
-		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);
-		if (pRst->BOF || pRst->adoEOF) {
+		pRst = pMyConnect->Execute(_bstr_t(sqlstr), NULL, adCmdText);  // 执行SQL语句
+		if (pRst->BOF || pRst->adoEOF) {   // 判断返回集
 			cout << endl;
 			cout << "数据库没有对应数据！查询失败！" << endl;
 			return false;
 		}
 		while (!pRst->adoEOF) {
-			_variant_t save = pRst->GetCollect("密码");
+			_variant_t save = pRst->GetCollect("密码");   // 获取结果集对应字段数据   为 _variant_t 类型数据
 			_variant_t admin = pRst->GetCollect("superadmin");
-			string password_DB = (char*)(_bstr_t)save;
+			string password_DB = (char*)(_bstr_t)save;   //   将 _variant_t  转换为  string 类型 
 			string admin_DB = (char*)(_bstr_t)admin;
-			if (password_DB == password) {
+			if (password_DB == password) {   // 判断输入密码与数据库密码是否相同
 				cout << endl;
-				if (admin_DB == "-1") {
+				if (admin_DB == "-1") {   // 根据数据库记录的该用户信息判断是否为超级管理员
 					superadmin = true;
 				}
 				else {
@@ -148,7 +147,7 @@ bool Connect::log_in(string user, string password) {
 				cout << "密码错误！" << endl;
 				return false;
 			}
-			pRst->MoveNext();
+			pRst->MoveNext();  // 向下移动结果集
 		}
 	}
 	catch (string e) {
@@ -156,7 +155,7 @@ bool Connect::log_in(string user, string password) {
 		cout << "失败!!!" << e << endl;
 		return false;
 	}
-	return false;   //  可能需要改变！
+	return false;
 }
 
 bool Connect::deleting(CString sqlstr) {
@@ -166,8 +165,8 @@ bool Connect::deleting(CString sqlstr) {
 	try {
 		pRst = pMyConnect->Execute(_bstr_t(sql), NULL, adCmdText);
 		CString sql_temp;
-		sql_temp.Format(_T("SELECT * FROM Employees WHERE 编号=%s"), sqlstr);
-		if (!check(sql_temp)) {
+		sql_temp.Format(_T("SELECT * FROM Employees WHERE 编号=%s"), sqlstr);   // 执行删除操作
+		if (!check(sql_temp)) {             // 再次确认是否已经删除
 			cout << "成功删除！" << endl;
 		}
 		else {
@@ -186,12 +185,12 @@ bool Connect::inserting(CString sql, CString num) {
 	//CString sqlstr = "USE xsyggl INSERT INTO Employees VALUES(000003,'向靳玺',18,0,1,60000)";
 	CString temp;
 	temp.Format(_T("SELECT * FROM Employees WHERE 编号=%s"), num);
-	if (check(temp)) {
+	if (check(temp)) {     // 判断输入的编号是否唯一
 		cout << "编号重复，重新输入" << endl;
 		return false;
 	}
 	try {
-		pMyConnect->Execute(_bstr_t(sql), NULL, adCmdText);
+		pMyConnect->Execute(_bstr_t(sql), NULL, adCmdText);  // 执行 sql
 		cout << endl;
 		return true;
 	}
@@ -218,7 +217,7 @@ bool Connect::is_super() {
 
 bool Connect::is_res_empty() {
 	if (!pRst->BOF && !pRst->adoEOF) {
-		return false;  // 结果集不为空     ?????   这里不对！！！
+		return false;  // 结果集不为空    ！！！
 	}
 	else {
 		return true;  // 结果集为空！
