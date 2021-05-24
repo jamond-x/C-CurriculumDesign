@@ -143,12 +143,14 @@
     <ClInclude Include="mainHead.h" />
     <ClInclude Include="Operate.h" />
     <ClInclude Include="SalesManager.h" />
+    <ClInclude Include="FormatD.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connect.cpp" />
     <ClCompile Include="main_.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Operate.cpp" />
+    <ClCompile Include="FormatD.cpp" />
     <ClCompile Include="Salesman.cpp" />
     <ClCompile Include="SalesManager.cpp" />
     <ClCompile Include="Staff.cpp" />
